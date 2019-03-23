@@ -19,7 +19,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <DataGrid Grid.Row="0" Grid.Column="1" Margin="10" Grid.RowSpan="3" Grid.ColumnSpan="2" ItemsSource="{Binding Source=List, UpdateSourceTrigger=PropertyChanged}">
+        <DataGrid Grid.Row="0" Grid.Column="1" Margin="10" Grid.RowSpan="3" Grid.ColumnSpan="2" ItemsSource="{Binding List, Mode = OneWay, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Surname"/>
                 <DataGridTextColumn Header="Name"/>

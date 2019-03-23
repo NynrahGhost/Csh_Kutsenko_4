@@ -17,7 +17,7 @@ namespace Csh_Kutsenko_01.ViewModels
     class AllPersonsViewModel : INotifyPropertyChanged
     {
         private List<Person> list = (new PersonList()).Generate();
-        public ObservableCollection<Person> List = new ObservableCollection<Person>((new PersonList()).Generate());
+        public ObservableCollection<Person> List = Person.Generate(); //= new ObservableCollection<Person>((new PersonList()).Generate());
         //{
         //    get
         //    {

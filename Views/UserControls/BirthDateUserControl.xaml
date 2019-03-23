@@ -16,19 +16,26 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
-        
-        <TextBox Grid.Row="0" Grid.Column="0" Margin="10"
-                 TextAlignment="Center" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBox Grid.Row="1" Grid.Column="0" Margin="10" 
-                 TextAlignment="Center" Text="{Binding Surname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        <DatePicker Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" Grid.RowSpan="1" Margin="10"
-                 SelectedDate="{Binding Date, UpdateSourceTrigger=PropertyChanged}" SelectedDateFormat="Long" FirstDayOfWeek="Monday"/>
+        <Label Grid.Row="0" Grid.Column="0" Margin="10" Content="Ім'я:" Background="White" FontSize="34" BorderThickness="1" />
+        <Label Grid.Row="1" Grid.Column="0" Margin="10" Content="Прізвище:" Background="White" FontSize="34" />
+        <Label Grid.Row="2" Grid.Column="0" Margin="10" Content="Дата народження:" Background="White" FontSize="34" />
+        <Label Grid.Row="3" Grid.Column="0" Margin="10" Content="Пошта:" Background="White" FontSize="34" />
+
+        <TextBox Grid.Row="0" Grid.Column="1" Margin="10"
+                 Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         <TextBox Grid.Row="1" Grid.Column="1" Margin="10" 
-                 TextAlignment="Center" Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding Surname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <DatePicker Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1" Grid.RowSpan="1" Margin="10"
+                 SelectedDate="{Binding Date, UpdateSourceTrigger=PropertyChanged}" SelectedDateFormat="Long" FirstDayOfWeek="Monday"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Margin="10" 
+                 Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         <!--<Button Grid.Row="2" Grid.Column="0" Margin="10" Grid.ColumnSpan="2" Content="Proceed" Command="{Binding ProceedCommand}" />-->
-        <Button Grid.Row="2" Grid.Column="0" Margin="10" Grid.ColumnSpan="1" Content="Return" Command="{Binding ReturnCommand}" />
-        <Button Grid.Row="2" Grid.Column="1" Margin="10" Grid.ColumnSpan="1" Content="Save" Command="{Binding SaveCommand}" />
+        <Button Grid.Row="4" Grid.Column="0" Margin="10" Grid.RowSpan="2" Content="Return" Command="{Binding ReturnCommand}" FontSize="34" />
+        <Button Grid.Row="4" Grid.Column="1" Margin="10" Grid.RowSpan="2" Content="Save" Command="{Binding SaveCommand}" FontSize="34" />
     </Grid>
 </UserControl>
