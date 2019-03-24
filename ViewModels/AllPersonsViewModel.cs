@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using Csh_Kutsenko_01.Annotations;
 using Csh_Kutsenko_01.Models;
@@ -17,13 +20,10 @@ namespace Csh_Kutsenko_01.ViewModels
 {
     class AllPersonsViewModel : INotifyPropertyChanged
     {
-        private ObservableCollection<Person> list = (Person.Generate());
         public ObservableCollection<Person> List //= new ObservableCollection<Person>((new PersonList()).Generate());
         {
-            get
-            {
-                return Person.List;
-            }
+            get { return Person.List; }
+            set { Person.List = value; OnPropertyChanged(); }
         }
 
         private Person _selection;
@@ -31,6 +31,68 @@ namespace Csh_Kutsenko_01.ViewModels
         {
             get { return _selection; }
             set { _selection = value; Person.Selected = value; OnPropertyChanged(); }
+        }
+ 
+
+        public List<ComboBoxItem> SortOptions
+        {
+            get
+            {
+                List<ComboBoxItem> options = new List<ComboBoxItem>();
+                foreach (string option in (new string[] { "None", "Name", "Surname", "Date of birth", "E-mail", "Sun sign", "Chineese sign" }))
+                {
+                    ComboBoxItem tmp = new ComboBoxItem();
+                    tmp.Content = option;
+                    options.Add(tmp);
+                }
+                return options;
+            }
+        }
+
+        private bool? _isAsc = true;
+        public bool? IsAsc
+        {
+            get { return _isAsc; }
+            set { _isAsc = value; OnPropertyChanged(); }
+        }
+
+        private ComboBoxItem _selectedOption;
+        public ComboBoxItem SelectedOption
+        {
+            get { return _selectedOption; }
+            set
+            {
+                _selectedOption = value;
+
+                if (Convert.ToBoolean(IsAsc))
+                {
+                    switch ((string)_selectedOption.Content)
+                    {
+                        case "None": { break; }
+                        case "Name": { List = new ObservableCollection<Person>(Person.List.OrderBy(o => o.Name).ToList()); break; }
+                        case "Surname": { List = new ObservableCollection<Person>(Person.List.OrderBy(o => o.Surname).ToList()); break; }
+                        case "Date of birth": { List = new ObservableCollection<Person>(Person.List.OrderBy(o => Convert.ToDateTime(o.BirthDate)).ToList()); break; }
+                        case "E-mail": { List = new ObservableCollection<Person>(Person.List.OrderBy(o => o.Email).ToList()); break; }
+                        case "Sun sign": { List = new ObservableCollection<Person>(Person.List.OrderBy(o => o.SunSign).ToList()); break; }
+                        case "Chineese sign": { List = new ObservableCollection<Person>(Person.List.OrderBy(o => o.ChineeseSign).ToList()); break; }
+                    }
+                }
+                else
+                {
+                    switch ((string)_selectedOption.Content)
+                    {
+                        case "None": { break; }
+                        case "Name": { List = new ObservableCollection<Person>(Person.List.OrderByDescending(o => o.Name).ToList()); break; }
+                        case "Surname": { List = new ObservableCollection<Person>(Person.List.OrderByDescending(o => o.Surname).ToList()); break; }
+                        case "Date of birth": { List = new ObservableCollection<Person>(Person.List.OrderByDescending(o => Convert.ToDateTime(o.BirthDate)).ToList()); break; }
+                        case "E-mail": { List = new ObservableCollection<Person>(Person.List.OrderByDescending(o => o.Email).ToList()); break; }
+                        case "Sun sign": { List = new ObservableCollection<Person>(Person.List.OrderByDescending(o => o.SunSign).ToList()); break; }
+                        case "Chineese sign": { List = new ObservableCollection<Person>(Person.List.OrderByDescending(o => o.ChineeseSign).ToList()); break; }
+                    }
+                }
+
+                OnPropertyChanged();
+            }
         }
 
         private ICommand _addCommand;
