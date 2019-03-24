@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Csh_Kutsenko_01.Tools.Managers
 {
      internal class BaseNavigationModel: INavigationModel
-    {
+     {
         private IContentOwner _contentOwner;
         private Dictionary<ViewType, INavigatable> _viewsDictionary;
 
@@ -45,13 +45,14 @@ namespace Csh_Kutsenko_01.Tools.Managers
             }
         }
 
-            public void Navigate(ViewType viewType)
+        public object Navigate(ViewType viewType)
         {
             if (!_viewsDictionary.ContainsKey(viewType))
             {
                 InitializeView(viewType);
             }
             _contentOwner.ContentControl.Content = _viewsDictionary[viewType];
+            return _contentOwner.ContentControl.Content;
         }
-        }
-    }
+     }
+}

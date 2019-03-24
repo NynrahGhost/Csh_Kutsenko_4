@@ -4,15 +4,15 @@
 winexe
 C#
 .cs
-D:\GitHub\Csh_Kutsenko_4\obj\Debug\
+C:\GitHub\CshRepos\Csh_Kutsenko_4\obj\Debug\
 Csh_Kutsenko_01
 none
 false
 DEBUG;TRACE
-D:\GitHub\Csh_Kutsenko_4\App.xaml
+C:\GitHub\CshRepos\Csh_Kutsenko_4\App.xaml
 3-376843153
 
-251560730826
+23-1564878473
 131569487696
 MainWindow.xaml;Views\UserControls\AllPersonsUserControl.xaml;Views\UserControls\BirthDateUserControl.xaml;
 

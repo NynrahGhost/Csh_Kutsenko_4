@@ -17,23 +17,20 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <DataGrid Grid.Row="0" Grid.Column="1" Margin="10" Grid.RowSpan="3" Grid.ColumnSpan="2" ItemsSource="{Binding List, Mode = OneWay, UpdateSourceTrigger=PropertyChanged}">
+        <DataGrid x:Name="TheGrid" Grid.Row="0" Grid.Column="1" Margin="10" Grid.RowSpan="3" Grid.ColumnSpan="2" IsReadOnly="True"
+                  ItemsSource="{Binding List, Mode = OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                  SelectedItem="{Binding Path=Selection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Surname"/>
-                <DataGridTextColumn Header="Name"/>
-                <DataGridTextColumn Header="E-mail"/>
-                <DataGridTextColumn Header="Birth date"/>
-                <DataGridTextColumn Header="Adult"/>
-                <DataGridTextColumn Header="Sun sign"/>
-                <DataGridTextColumn Header="Chineese sign"/>
-                <DataGridTextColumn Header="Has birthday today"/>
+                
             </DataGrid.Columns>
         </DataGrid>
         
-        <Button Grid.Row="0" Grid.Column="0" Margin="10" Grid.ColumnSpan="1" Content="Add" Command="{Binding AddCommand}" />
-        <Button Grid.Row="1" Grid.Column="0" Margin="10" Grid.ColumnSpan="1" Content="Remove" Command="{Binding RemoveCommand}" />
-        <Button Grid.Row="2" Grid.Column="0" Margin="10" Grid.ColumnSpan="1" Content="Edit" Command="{Binding EditCommand}" />
+        <Button Grid.Row="0" Grid.Column="0" Margin="10" Grid.ColumnSpan="1" Content="Add" FontSize="34" Command="{Binding AddCommand}" />
+        <Button Grid.Row="1" Grid.Column="0" Margin="10" Grid.ColumnSpan="1" Content="Remove" FontSize="34" Command="{Binding RemoveCommand}" />
+        <Button Grid.Row="2" Grid.Column="0" Margin="10" Grid.ColumnSpan="1" Content="Edit" FontSize="34" Command="{Binding EditCommand}" />
+        <Button Grid.Row="3" Grid.Column="0" Margin="10" Grid.ColumnSpan="3" Content="Save" FontSize="34" Command="{Binding SaveCommand}" />
     </Grid>
 </UserControl>

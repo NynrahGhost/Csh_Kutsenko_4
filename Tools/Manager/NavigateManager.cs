@@ -12,9 +12,9 @@
         {
             _navigationModel = navigationModel;
         }
-        internal void Navigate(ViewType viewType)
+        internal object Navigate(ViewType viewType)
         {
-            _navigationModel.Navigate(viewType);
+            return _navigationModel.Navigate(viewType);
         }
         private NavigateManager()
         {

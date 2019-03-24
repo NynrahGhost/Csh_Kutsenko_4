@@ -76,20 +76,42 @@ namespace Csh_Kutsenko_01.ViewModels
 
             if (PersonInstance.IsBirthday)
             {
-                MessageBox.Show("Схоже, що сьогодні в вас День народження! Вітаємо!");
+                MessageBox.Show("Схоже, що сьогодні в користувача День народження! Вітаємо!");
             }
 
             LoaderManager.Instance.HideLoader();
+
+            /*
             MessageBox.Show("Ім'я: " + PersonInstance.Name + System.Environment.NewLine +
                             "Прізвище: " + PersonInstance.Surname + System.Environment.NewLine +
                             "Єлектронна пошта: " + PersonInstance.Email + System.Environment.NewLine +
-                            "Дата народження: " + PersonInstance.BirthDate.ToLongDateString() + System.Environment.NewLine + System.Environment.NewLine +
+                            "Дата народження: " + PersonInstance.BirthDate + System.Environment.NewLine + System.Environment.NewLine +
                             (PersonInstance.IsAdult ? "Користувач є дорослим" : "Користувач не є дорослим") + System.Environment.NewLine +
                             "Сонячний знак користувача: " + PersonInstance.SunSign + System.Environment.NewLine +
                             "Знак зодіаку користувача за китайською системою: " + PersonInstance.ChineeseSign + System.Environment.NewLine +
                             (PersonInstance.IsBirthday ? "Сьогодні День народження користувача" : "Сьогодні не День народження користувача"));
+            */
+
+            if (Person.Selected != null)
+            {
+                Person.List[Person.List.IndexOf(Person.Selected)] = PersonInstance;
+            }
+            else
+            {
+                Person.List.Add(PersonInstance);
+            }
+            Person.Save();
         }
 
+
+        public void FillFields()
+        {
+            Name = Person.Selected.Name;
+            Surname = Person.Selected.Surname;
+            Email = Person.Selected.Email;
+            Date = Convert.ToDateTime(Person.Selected.BirthDate);
+            OnPropertyChanged();
+        }
 
 
         public event PropertyChangedEventHandler PropertyChanged;

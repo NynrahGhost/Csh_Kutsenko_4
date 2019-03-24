@@ -8,6 +8,6 @@ namespace Csh_Kutsenko_01.Tools.Managers
 {
     interface INavigationModel
     {
-        void Navigate(ViewType viewType);
+        object Navigate(ViewType viewType);
     }
 }

@@ -8,10 +8,17 @@ using System.Xml.Serialization;
 namespace Csh_Kutsenko_01.Models
 {
     [Serializable]
-    class Person
+    public class Person
     {
-        static XmlSerializer formatter = new XmlSerializer(typeof(Person));
-        public static ObservableCollection<Person> List;
+
+        #region Static members
+
+        private static XmlSerializer formatter = new XmlSerializer(typeof(ObservableCollection<Person>));
+        public static ObservableCollection<Person> List = new ObservableCollection<Person>();
+        public static Person Selected = null;
+
+        #endregion
+
 
         #region Properties
 
@@ -35,10 +42,10 @@ namespace Csh_Kutsenko_01.Models
             get { return _email; }
             set { _email = value; }
         }
-        public DateTime BirthDate
+        public string BirthDate
         {
-            get { return _birthDate; }
-            set { _birthDate = value; }
+            get { return _birthDate.ToLongDateString(); }
+            set { _birthDate = Convert.ToDateTime(value); }
         }
 
         #endregion
@@ -48,11 +55,11 @@ namespace Csh_Kutsenko_01.Models
 
         public Person(string name, string surname, string email, DateTime birthDate)
         {
-            if(((System.DateTime.Today - birthDate).Days / 365) > 135)
+            if (((System.DateTime.Today - birthDate).Days / 365) > 135)
             {
                 throw new PersonTooOldException("Обрана дата пізніше сьогоднішньої!");
             }
-            if(birthDate > System.DateTime.Today)
+            if (birthDate > System.DateTime.Today)
             {
                 throw new PersonNotBornException("Обрана дата занадто стара, тільки живі користувачі приймаються!");
             }
@@ -67,86 +74,86 @@ namespace Csh_Kutsenko_01.Models
             this._email = email;
             this._birthDate = birthDate;
 
-            IsAdult = ((System.DateTime.Today - birthDate).Days / 365) >= 18;
+            _isAdult = ((System.DateTime.Today - birthDate).Days / 365) >= 18;
             switch (birthDate.Date.Month)
             {
                 case 1:
-                    SunSign = birthDate.Date.Day < 20 ? "Стрілець" : "Козоріг";
+                    _sunSign = birthDate.Date.Day < 20 ? "Стрілець" : "Козоріг";
                     break;
                 case 2:
-                    SunSign = birthDate.Date.Day < 16 ? "Козоріг" : "Водолій";
+                    _sunSign = birthDate.Date.Day < 16 ? "Козоріг" : "Водолій";
                     break;
                 case 3:
-                    SunSign = birthDate.Date.Day < 11 ? "Водолій" : "Риби";
+                    _sunSign = birthDate.Date.Day < 11 ? "Водолій" : "Риби";
                     break;
                 case 4:
-                    SunSign = birthDate.Date.Day < 18 ? "Риби" : "Овен";
+                    _sunSign = birthDate.Date.Day < 18 ? "Риби" : "Овен";
                     break;
                 case 5:
-                    SunSign = birthDate.Date.Day < 13 ? "Овен" : "Телець";
+                    _sunSign = birthDate.Date.Day < 13 ? "Овен" : "Телець";
                     break;
                 case 6:
-                    SunSign = birthDate.Date.Day < 21 ? "Телець" : "Близнюки";
+                    _sunSign = birthDate.Date.Day < 21 ? "Телець" : "Близнюки";
                     break;
                 case 7:
-                    SunSign = birthDate.Date.Day < 20 ? "Близнюки" : "Рак";
+                    _sunSign = birthDate.Date.Day < 20 ? "Близнюки" : "Рак";
                     break;
                 case 8:
-                    SunSign = birthDate.Date.Day < 10 ? "Рак" : "Лев";
+                    _sunSign = birthDate.Date.Day < 10 ? "Рак" : "Лев";
                     break;
                 case 9:
-                    SunSign = birthDate.Date.Day < 16 ? "Лев" : "Діва";
+                    _sunSign = birthDate.Date.Day < 16 ? "Лев" : "Діва";
                     break;
                 case 10:
-                    SunSign = birthDate.Date.Day < 30 ? "Діва" : "Терези";
+                    _sunSign = birthDate.Date.Day < 30 ? "Діва" : "Терези";
                     break;
                 case 11:
-                    SunSign = birthDate.Date.Day < 23 ? "Терези" : birthDate.Date.Day < 29 ? "Скорпіон" : "Змієносець";
+                    _sunSign = birthDate.Date.Day < 23 ? "Терези" : birthDate.Date.Day < 29 ? "Скорпіон" : "Змієносець";
                     break;
                 case 12:
-                    SunSign = birthDate.Date.Day < 17 ? "Змієносець" : "Стрілець";
+                    _sunSign = birthDate.Date.Day < 17 ? "Змієносець" : "Стрілець";
                     break;
             }
             switch (birthDate.Date.Year % 12)
             {
                 case 0:
-                    ChineeseSign = "Мавпа";
+                    _chineeseSign = "Мавпа";
                     break;
                 case 1:
-                    ChineeseSign = "Півень";
+                    _chineeseSign = "Півень";
                     break;
                 case 2:
-                    ChineeseSign = "Собака";
+                    _chineeseSign = "Собака";
                     break;
                 case 3:
-                    ChineeseSign = "Свиня";
+                    _chineeseSign = "Свиня";
                     break;
                 case 4:
-                    ChineeseSign = "Пацюк";
+                    _chineeseSign = "Пацюк";
                     break;
                 case 5:
-                    ChineeseSign = "Бик";
+                    _chineeseSign = "Бик";
                     break;
                 case 6:
-                    ChineeseSign = "Тигр";
+                    _chineeseSign = "Тигр";
                     break;
                 case 7:
-                    ChineeseSign = "Кролик";
+                    _chineeseSign = "Кролик";
                     break;
                 case 8:
-                    ChineeseSign = "Дракон";
+                    _chineeseSign = "Дракон";
                     break;
                 case 9:
-                    ChineeseSign = "Змія";
+                    _chineeseSign = "Змія";
                     break;
                 case 10:
-                    ChineeseSign = "Кінь";
+                    _chineeseSign = "Кінь";
                     break;
                 case 11:
-                    ChineeseSign = "Коза";
+                    _chineeseSign = "Коза";
                     break;
             }
-            IsBirthday = birthDate.Date.Month == System.DateTime.Today.Month && birthDate.Date.Day == System.DateTime.Today.Day;
+            _isBirthday = birthDate.Date.Month == System.DateTime.Today.Month && birthDate.Date.Day == System.DateTime.Today.Day;
         }
 
         public Person(string name, string surname, string email)
@@ -169,25 +176,53 @@ namespace Csh_Kutsenko_01.Models
 
         #region Read-only
 
-        public readonly bool IsAdult;
-        public readonly string SunSign;
-        public readonly string ChineeseSign;
-        public readonly bool IsBirthday;
+        private bool _isAdult;
+        private string _sunSign;
+        private string _chineeseSign;
+        private bool _isBirthday;
+
+        public bool IsAdult
+        {
+            get { return _isAdult; }
+            set { _isAdult = value; }
+        }
+        public string SunSign
+        {
+            get { return _sunSign; }
+            set { _sunSign = value; }
+        }
+        public string ChineeseSign
+        {
+            get { return _chineeseSign; }
+            set { _chineeseSign = value; }
+        }
+        public bool IsBirthday
+        {
+            get { return _isBirthday; }
+            set { _isBirthday = value; }
+        }
 
         #endregion
 
+        
         #region Methods
 
         static public ObservableCollection<Person> Generate()
         {
+            if (File.Exists("people.xml"))
+            {
+                return Read();
+            }
+
             string[] names = { "Іван", "Тарас", "Марія", "Тамара", "Ігор", "Георгій", "Володимир", "Наталія", "Олена", "Юлія" };
+            string[] surnames = { "Мельник", "Шевченко", "Бойко", "Коваленко", "Бондаренко", "Ткаченко", "Ковальчук", "Кравченко", "Олійник", "Шевчук" };
             Random rand = new Random();
 
-            using (FileStream fs = new FileStream("people.dat", FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream("people.xml", FileMode.OpenOrCreate))
             {
                 for (int i = 0; i < 51; i++)
                 {
-                    List.Add(new Person(names[rand.Next() % 10], names[rand.Next() % 10], ((char)i) + "@gmail.com", (new DateTime(1975, 1, 1)).AddDays(rand.Next(10000))));
+                    List.Add(new Person(names[rand.Next() % 10], surnames[rand.Next() % 10], RandomString(5, rand) + "@gmail.com", (new DateTime(1975, 1, 1)).AddDays(rand.Next(10000))));
                 }
 
                 formatter.Serialize(fs, List);
@@ -197,24 +232,31 @@ namespace Csh_Kutsenko_01.Models
 
         static public ObservableCollection<Person> Read()
         {
-            using (FileStream fs = new FileStream("people.dat", FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream("people.xml", FileMode.OpenOrCreate))
             {
-                for (int i = 0; i < 51; i++)
-                {
-                    List = (ObservableCollection<Person>)formatter.Deserialize(fs);
-                }
+                List = (ObservableCollection<Person>)formatter.Deserialize(fs);
             }
             return List;
         }
 
         static public void Save()
         {
-            using (FileStream fs = new FileStream("people.dat", FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream("people.xml", FileMode.OpenOrCreate))
             {
                 formatter.Serialize(fs, List);
             }
         }
 
+
+
+        public static string RandomString(int length, Random random)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
         #endregion
+
     }
 }
